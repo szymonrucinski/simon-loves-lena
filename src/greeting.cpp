@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "greeting.h"
+#define cimg_display 0
 #include "CImg.h"
 
 using namespace cimg_library;
