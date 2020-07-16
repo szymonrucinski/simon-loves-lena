@@ -11,7 +11,7 @@ Napi::String greetHello(const Napi::CallbackInfo &info)
 
     //call 'helloUser' function from 'greeting.cpp' file
     //Passing hardcoded 'Szymon'
-    std::string result = helloUser("Szymon");
+    std::string result = helloUser( info[0].As<Napi::String>()  );
 
     //return new 'Napi::String' value
     return Napi::String::New(env, result);
@@ -19,6 +19,9 @@ Napi::String greetHello(const Napi::CallbackInfo &info)
 
 Napi::String modBright(const Napi::CallbackInfo &info)
 {
+    // const char *imageName = info[0].IsString()
+    // const char *imageName = info[1].IsNumber()
+
     Napi::Env env = info.Env();
 
     //call 'helloUser' function from 'greeting.cpp' file
@@ -36,6 +39,10 @@ Napi::Object Init(Napi::Env env, Napi::Object exports)
     exports.Set(
         Napi::String::New(env, "modBright"),  //property name =>"greetHello"
         Napi::Function::New(env, modBright)); //property value => 'greetHello' function
+
+    exports.Set(Napi::String::New(env, "greetHello"),
+        Napi::Function::New(env, greetHello));
+
 
     return exports;
 }

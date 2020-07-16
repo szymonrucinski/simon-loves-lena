@@ -9,3 +9,4 @@ console.log();
 //execute  'greetHello' function
 console.log('greetModule.greetHello(): ', greetModule.modBright());
 console.log();
+console.log('greetModule.greetHello(): ', greetModule.greetHello("Jakub"));
