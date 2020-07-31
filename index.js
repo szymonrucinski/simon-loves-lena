@@ -24,11 +24,11 @@ app.use(bodyParser.urlencoded({
 app.use(upload());
         
 
-// app.get('/', (req, res) => {
+app.get('/', (req, res) => {
 
-//    res.sendFile(__dirname + '/index.html' );
- 
-// });
+
+  res.send("Image Processing web API build by Szymon Rucinski")
+});
 
 app.post('/brighter/:howBright', (req,res)=>{
 
