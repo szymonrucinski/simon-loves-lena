@@ -1,2 +1,4 @@
 node_modules/
 build/*
+images/new.jpg
+images/new*.jpg
