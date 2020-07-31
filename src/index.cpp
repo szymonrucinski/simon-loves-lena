@@ -20,7 +20,7 @@ Napi::String greetHello(const Napi::CallbackInfo &info)
 Napi::String modBright(const Napi::CallbackInfo &info)
 {
     // const char *imageName = info[0].IsString()
-    // const char *imageName = info[1].IsNumber()
+    // const char *value = info[1].IsNumber()
 
     Napi::Env env = info.Env();
 
@@ -29,7 +29,7 @@ Napi::String modBright(const Napi::CallbackInfo &info)
 
     //return new 'Napi::String' value
 
-    return Napi::String::New(env, brightness("lenac.bmp", 200));
+    return Napi::String::New(env, brightness("./images/BartSimpson.jpg", 200));
 }
 
 //callback method when module is registered with Node.js

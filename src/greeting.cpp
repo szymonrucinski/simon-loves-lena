@@ -35,7 +35,7 @@ std::string brightness(const char *img_name, int value)
         }
     }
 
-    image.save("new.bmp");
+    image.save("./images/new.jpg");
 
     return "Brightness increased" + to_string(value);
 }
