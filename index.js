@@ -45,6 +45,8 @@ app.post('/', (req,res)=>{
             {
             processing.modBright(__dirname + '/images/'+fileName, 200);
             res.sendFile(__dirname + '/images/new.jpg');
+            var image = document.getElementById('image-preview');
+            image.src = __dirname + '/images/new.jpg';
             }
         })
 
