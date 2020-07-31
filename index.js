@@ -7,6 +7,7 @@ const path = require('path')
 const upload = require('express-fileupload')
 const bodyParser = require('body-parser');
 const e = require('express');
+
 const jsonParser = bodyParser.json()
 const PORT = process.env.PORT || 3000;
 
@@ -23,13 +24,13 @@ app.use(bodyParser.urlencoded({
 app.use(upload());
         
 
-app.get('/', (req, res) => {
+// app.get('/', (req, res) => {
 
-   res.sendFile(__dirname + '/index.html' );
+//    res.sendFile(__dirname + '/index.html' );
  
-});
+// });
 
-app.post('/', (req,res)=>{
+app.post('/brighter/:howBright', (req,res)=>{
 
     if(req.files)
     {
@@ -44,9 +45,8 @@ app.post('/', (req,res)=>{
             else
             {
             processing.modBright(__dirname + '/images/'+fileName, 200);
-            res.sendFile(__dirname + '/images/new.jpg');
-            var image = document.getElementById('image-preview');
-            image.src = __dirname + '/images/new.jpg';
+            res.sendFile(__dirname + '/images/new.jpg' );
+
             }
         })
 
