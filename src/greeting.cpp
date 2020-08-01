@@ -13,9 +13,11 @@ std::string helloUser(std::string name)
     return "Hello " + name + "!";
 }
 
-std::string brightness(const char *img_name, int value)
+std::string brightness(string img_name, int value)
 {
-    CImg<unsigned char> image(img_name);
+    const char * c_name = img_name.c_str();
+
+    CImg<unsigned char> image(c_name);
     int height = image.height();
     int width = image.width();
     int spectrum = image.spectrum();

@@ -34,7 +34,8 @@ app.post('/brighter/:howBright', (req,res)=>{
 
     if(req.files)
     {
-        console.log(req.files)
+        console.log(req.files);
+        console.log(req.body.value);
         var file = req.files.file
         var fileName = file.name
 
@@ -44,8 +45,8 @@ app.post('/brighter/:howBright', (req,res)=>{
             }
             else
             {
-            processing.modBright(__dirname + '/images/'+fileName, 200);
-            res.sendFile(__dirname + '/images/new.jpg' );
+            processing.modBright(__dirname + "/images/"+fileName, parseInt(req.body.value));
+            res.sendFile(__dirname + '/images/new.bmp' );
 
             }
         })
