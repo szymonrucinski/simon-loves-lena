@@ -15,7 +15,7 @@ std::string helloUser(std::string name)
 
 std::string brightness(string img_name, int value)
 {
-    const char * c_name = img_name.c_str();
+    const char *c_name = img_name.c_str();
 
     CImg<unsigned char> image(c_name);
     int height = image.height();
@@ -36,8 +36,8 @@ std::string brightness(string img_name, int value)
             }
         }
     }
-
-    image.save("./images/new.jpg");
+    std::cout << ("errpr");
+    image.save("./images/" + *c_name);
 
     return "Brightness increased" + to_string(value);
 }

@@ -1,7 +1,7 @@
 var processing = require('./build/Release/greet.node');
 const fs = require('fs');
 const mime = require('mime');
-const cp  = require('child_process');
+const cp = require('child_process');
 const express = require('express');
 const path = require('path')
 const upload = require('express-fileupload')
@@ -13,40 +13,38 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(express.static('images'))
+app.use(express.static('upload'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
-  }));
-  app.use(express.json({
+}));
+app.use(express.json({
     type: 'application/json',
-  }));
+}));
 app.use(upload());
-        
+
 
 app.get('/', (req, res) => {
 
 
-  res.send("Image Processing web API build by Szymon Rucinski")
+    res.send("Image Processing web API build by Szymon Rucinski")
 });
 
-app.post('/brighter/:howBright', (req,res)=>{
+app.post('/brighter/:howBright', (req, res) => {
 
-    if(req.files)
-    {
+    if (req.files) {
         console.log(req.files);
         console.log(req.body.value);
         var file = req.files.file
         var fileName = file.name
 
-        file.mv('./images/' + fileName, (err)=>{
-            if(err)
-            { res.send('err')
+        file.mv(__dirname + "/upload/" + fileName, (err) => {
+            if (err) {
+                res.send('ERROR WHILE UPLOADING')
             }
-            else
-            {
-            processing.modBright(__dirname + "/images/"+fileName, parseInt(req.body.value));
-            res.sendFile(__dirname + '/images/new.bmp' );
+            else {
+                processing.modBright(__dirname + "/upload/" + fileName, parseInt(req.body.value));
+                res.sendFile(__dirname + "/output/" + fileName);
 
             }
         })
@@ -56,5 +54,5 @@ app.post('/brighter/:howBright', (req,res)=>{
 
 
 app.listen(PORT, () => {
- console.log('Server running on port %d', PORT);
+    console.log('Server running on port %d', PORT);
 });
