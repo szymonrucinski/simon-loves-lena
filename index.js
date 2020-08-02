@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(express.static('upload'))
+// app.use(express.static('upload'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -43,7 +43,7 @@ app.post('/brighter/:howBright', (req, res) => {
                 res.send('ERROR WHILE UPLOADING')
             }
             else {
-                processing.modBright(__dirname + "/upload/" + fileName, parseInt(req.body.value));
+                processing.modBright(__dirname + "/upload/" + fileName, parseInt(req.body.value),fileName);
                 res.sendFile(__dirname + "/output/" + fileName);
 
             }
