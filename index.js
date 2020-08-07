@@ -43,6 +43,7 @@ app.post('/brighter/:howBright', (req, res) => {
                 res.send('ERROR WHILE UPLOADING')
             }
             else {
+                console.log(__dirname + "/upload/" + fileName);
                 processing.modBright(__dirname + "/upload/" + fileName, parseInt(req.body.value),fileName);
                 res.sendFile(__dirname + "/output/" + fileName);
 
