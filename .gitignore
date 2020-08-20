@@ -2,3 +2,7 @@ node_modules/
 build/*
 images/new.jpg
 images/new*.jpg.vscode
+package-lock.json
+*.bmp
+*.jpg
+*.png
