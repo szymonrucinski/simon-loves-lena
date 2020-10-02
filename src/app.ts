@@ -1,11 +1,11 @@
 import express, { Application, Request, Response } from "express";
-const improc = require("../build/Release/improc.node");
-const upload = require("express-fileupload");
-const bodyParser = require("body-parser");
-const PORT = process.env.PORT || 3000;
-const fs = require("fs-extra");
+import { improc } from "./improc";
+import bodyParser from "body-parser";
+import upload from "express-fileupload";
 import { clear, makeDir } from "./serverOps";
+import { messages } from "./messages";
 
+const PORT = process.env.PORT || 3000;
 const app: Application = express();
 const uploadDir: string = process.cwd() + "/static/upload/";
 const outputDir: string = process.cwd() + "/static/output/";
@@ -24,7 +24,7 @@ app.use(
 app.use(upload());
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Image Processing web API build by Szymon Rucinski");
+  res.send(messages["uploadError"]);
 });
 
 app.post("/brighter/:howBright", (req: Request, res: Response) => {
@@ -34,7 +34,7 @@ app.post("/brighter/:howBright", (req: Request, res: Response) => {
     clear(uploadDir, outputDir);
     file.mv(uploadDir + fileName, (err) => {
       if (err) {
-        res.send("ERROR WHILE UPLOADING");
+        res.send(messages["greeting"]);
       } else {
         improc.brightness(
           uploadDir + fileName,

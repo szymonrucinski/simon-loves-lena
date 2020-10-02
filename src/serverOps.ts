@@ -1,11 +1,11 @@
 import fs from "fs-extra";
 
-const clear = (uploadDir: string, outputDir: string) => {
+const clear = (uploadDir: string, outputDir: string): void => {
   fs.emptyDirSync(uploadDir);
   fs.emptyDirSync(outputDir);
 };
 
-const makeDir = () => {
+const makeDir = (): void => {
   if (!fs.existsSync("./static/")) {
     fs.mkdirSync("./static/");
     fs.mkdirSync("./static/upload");
