@@ -1,27 +1,14 @@
 import express, { Application, Request, Response } from "express";
-const processing = require("../build/Release/greet.node");
+const improc = require("../build/Release/improc.node");
 const upload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 3000;
 const fs = require("fs-extra");
+import { clear, makeDir } from "./serverOps";
 
 const app: Application = express();
-const parentDir: string = process.cwd();
-const uploadDir: string = parentDir + "/static/upload/";
-const outputDir: string = parentDir + "/static/output/";
-
-const clear = () => {
-  fs.emptyDirSync(uploadDir);
-  fs.emptyDirSync(outputDir);
-};
-
-const makeDir = () => {
-  if (!fs.existsSync("./static/")) {
-    fs.mkdirSync("./static/");
-    fs.mkdirSync("./static/upload");
-    fs.mkdirSync("./static/output");
-  }
-};
+const uploadDir: string = process.cwd() + "/static/upload/";
+const outputDir: string = process.cwd() + "/static/output/";
 
 app.use(bodyParser.json());
 app.use(
@@ -44,13 +31,13 @@ app.post("/brighter/:howBright", (req: Request, res: Response) => {
   if (req.files) {
     var file = req.files.file;
     var fileName = file.name;
-    clear();
+    clear(uploadDir, outputDir);
     file.mv(uploadDir + fileName, (err) => {
       if (err) {
         res.send("ERROR WHILE UPLOADING");
       } else {
-        processing.modBright(
-          parentDir + "/static/upload/" + fileName,
+        improc.brightness(
+          uploadDir + fileName,
           parseInt(req.body.value),
           fileName
         );

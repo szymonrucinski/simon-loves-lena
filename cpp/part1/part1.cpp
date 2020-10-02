@@ -1,14 +1,14 @@
 // src/greeting.cpp
 #include <iostream>
 #include <string>
-#include "greeting.h"
+#include "part1.h"
 #define cimg_display 0
-#include "CImg.h"
+#include "../CImg.h"
 
 using namespace cimg_library;
 using namespace std;
 
-std::string uploadToOutput(std::string path)
+std::string __uploadToOutput(std::string path)
 {
     while (path.find("upload") != string::npos)
         path.replace(path.find("upload"), 6, "output");
@@ -16,15 +16,12 @@ std::string uploadToOutput(std::string path)
     return path;
 }
 
-std::string brightness(string imgPath, int value, string imgName)
-{
+std::const char *
 
+std::string __brightness(string imgPath, int value, string imgName)
+{
     const char *c_name = imgPath.c_str();
     std::cout << (c_name)<<endl;
-
-    
-    
-
 
     CImg<unsigned char> image(c_name);
     int height = image.height();

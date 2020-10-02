@@ -1,12 +1,12 @@
 {
     "targets": [
         {
-            "target_name": "greet",
+            "target_name": "improc",
             "cflags!": ["-fno-exceptions"],
             "cflags_cc!": ["-fno-exceptions"],
             "sources": [
-                "./src/greeting.cpp",
-                "./src/index.cpp"
+                "./cpp/part1/part1.cpp",
+                "./cpp/part1/index1.cpp"
             ],
             "include_dirs": [
                 "<!@(node -p \"require('node-addon-api').include\")"

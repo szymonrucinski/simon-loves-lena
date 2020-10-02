@@ -4,26 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const processing = require("../build/Release/greet.node");
+const improc = require("../build/Release/improc.node");
 const upload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 3000;
 const fs = require("fs-extra");
+const serverOps_1 = require("./serverOps");
 const app = express_1.default();
-const parentDir = process.cwd();
-const uploadDir = parentDir + "/static/upload/";
-const outputDir = parentDir + "/static/output/";
-const clear = () => {
-    fs.emptyDirSync(uploadDir);
-    fs.emptyDirSync(outputDir);
-};
-const makeDir = () => {
-    if (!fs.existsSync("./static/")) {
-        fs.mkdirSync("./static/");
-        fs.mkdirSync("./static/upload");
-        fs.mkdirSync("./static/output");
-    }
-};
+const uploadDir = process.cwd() + "/static/upload/";
+const outputDir = process.cwd() + "/static/output/";
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true,
@@ -39,13 +28,13 @@ app.post("/brighter/:howBright", (req, res) => {
     if (req.files) {
         var file = req.files.file;
         var fileName = file.name;
-        clear();
+        serverOps_1.clear(uploadDir, outputDir);
         file.mv(uploadDir + fileName, (err) => {
             if (err) {
                 res.send("ERROR WHILE UPLOADING");
             }
             else {
-                processing.modBright(parentDir + "/static/upload/" + fileName, parseInt(req.body.value), fileName);
+                improc.brightness(uploadDir + fileName, parseInt(req.body.value), fileName);
                 res.sendFile(outputDir + fileName);
             }
         });
@@ -53,5 +42,5 @@ app.post("/brighter/:howBright", (req, res) => {
 });
 app.listen(PORT, () => {
     console.log("Server running on port %d", PORT);
-    makeDir();
+    serverOps_1.makeDir();
 });

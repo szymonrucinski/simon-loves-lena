@@ -1,20 +1,32 @@
 <!DOCTYPE html>
+<html>
+  <body>
+    <form>
+      <input type="file" id="avatar" />
+    </form>
+    <script>
+      // select file input
+      const input = document.getElementById("avatar");
 
-<head>
-    <title> Image Processing </title>
-    <H1>Image Processing<H2>
+      // add event listener
+      input.addEventListener("change", () => {
+        uploadFile(input.files[0]);
+      });
 
-    <script type="text/javascript" src="index.js"></script>
-    <form method ="POST" action="/" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" name="submit">
-        <div class ="image-preview" id="image-preview">
-            <img id="image-preview" src="" alt="Image Preview" class="image-preview-image">
-        <span class ="image-preview-text">ImagePreview</span>
-        </div>
+      const uploadFile = (file) => {
+        // add file to FormData object
+        const fd = new FormData();
+        fd.append("avatar", file);
 
-
-
-</head>
-
-<body>
+        // send `POST` request
+        fetch("http://192.168.8.175:3000/brighter/100", {
+          method: "POST",
+          body: fd,
+        })
+          .then((res) => res.blob())
+          .then((blob) => console.log(blob))
+          .catch((err) => console.error(err));
+      };
+    </script>
+  </body>
+</html>

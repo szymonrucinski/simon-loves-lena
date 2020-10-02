@@ -7,3 +7,6 @@ package-lock.json
 *.bmp
 *.jpg
 *.png
+index.html
+index.js
+upload.js
