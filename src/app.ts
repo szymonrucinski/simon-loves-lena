@@ -3,6 +3,7 @@ const processing = require("../build/Release/greet.node");
 const upload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 3000;
+const fs = require("fs");
 
 const app: Application = express();
 const parentDir: string = process.cwd();
@@ -48,4 +49,10 @@ app.post("/brighter/:howBright", (req: Request, res: Response) => {
 
 app.listen(PORT, () => {
   console.log("Server running on port %d", PORT);
+
+  if (!fs.existsSync("./static/")) {
+    fs.mkdirSync("./static/");
+    fs.mkdirSync("./static/upload");
+    fs.mkdirSync("./static/output");
+  }
 });
