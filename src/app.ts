@@ -15,7 +15,7 @@ const clear = () => {
   fs.emptyDirSync(outputDir);
 };
 
-const creatDirs = () => {
+const makeDir = () => {
   if (!fs.existsSync("./static/")) {
     fs.mkdirSync("./static/");
     fs.mkdirSync("./static/upload");
@@ -44,7 +44,7 @@ app.post("/brighter/:howBright", (req: Request, res: Response) => {
   if (req.files) {
     var file = req.files.file;
     var fileName = file.name;
-    clear;
+    clear();
     file.mv(uploadDir + fileName, (err) => {
       if (err) {
         res.send("ERROR WHILE UPLOADING");
@@ -62,5 +62,5 @@ app.post("/brighter/:howBright", (req: Request, res: Response) => {
 
 app.listen(PORT, () => {
   console.log("Server running on port %d", PORT);
-  creatDirs;
+  makeDir();
 });
