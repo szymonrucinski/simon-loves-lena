@@ -8,17 +8,20 @@
 using namespace cimg_library;
 using namespace std;
 
-std::string helloUser(std::string name)
+std::string uploadToOutput(std::string path)
 {
-    return "Hello " + name + "!";
+    while (path.find("upload") != string::npos)
+        path.replace(path.find("upload"), 6, "output");
+    
+    return path;
 }
 
 std::string brightness(string imgPath, int value, string imgName)
 {
 
     const char *c_name = imgPath.c_str();
-        std::cout << ("Loaded")<<endl;
-    std::cout << (imgPath)<<endl;
+    std::cout << (c_name)<<endl;
+
     
     
 
@@ -42,7 +45,9 @@ std::string brightness(string imgPath, int value, string imgName)
             }
         }
     }
-    string output = "./output/"+ imgName; 
+        std::cout << ("Saved")<<endl;
+
+    string output = uploadToOutput(imgPath); 
     const char *c_output = output.c_str();
 
     image.save(c_output);
