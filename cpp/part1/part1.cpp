@@ -12,16 +12,13 @@ std::string __uploadToOutput(std::string path)
 {
     while (path.find("upload") != string::npos)
         path.replace(path.find("upload"), 6, "output");
-    
+
     return path;
 }
-
-std::const char *
 
 std::string __brightness(string imgPath, int value, string imgName)
 {
     const char *c_name = imgPath.c_str();
-    std::cout << (c_name)<<endl;
 
     CImg<unsigned char> image(c_name);
     int height = image.height();
@@ -42,12 +39,10 @@ std::string __brightness(string imgPath, int value, string imgName)
             }
         }
     }
-        std::cout << ("Saved")<<endl;
 
-    string output = uploadToOutput(imgPath); 
+    string output = __uploadToOutput(imgPath);
     const char *c_output = output.c_str();
 
     image.save(c_output);
-
     return "Brightness increased " + to_string(value);
 }
