@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
-    "build": "tsc",
+    "build": "npm test && tsc",
     "postinstall": "npm run build",
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts'",
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts' --exit",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
@@ -16,8 +16,11 @@
   "license": "ISC",
   "dependencies": {
     "@types/body-parser": "^1.19.0",
+    "@types/chai-http": "^4.2.0",
     "@types/fs-extra": "^9.0.1",
+    "@types/request": "^2.48.5",
     "body-parser": "^1.19.0",
+    "chai-http": "^4.3.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.8",
     "fs": "0.0.1-security",
@@ -26,7 +29,8 @@
     "mime": "^2.4.6",
     "node-addon-api": "^3.0.0",
     "nopt": "^4.0.3",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
