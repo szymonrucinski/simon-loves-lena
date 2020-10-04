@@ -13,7 +13,7 @@ describe("Test basic interaction", () => {
       .request(app)
       .get("/")
       .end((err, response) => {
-        response.should.have.status(404);
+        response.should.have.status(200);
         response.text.should.be.a("string");
         done();
       });
