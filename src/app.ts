@@ -24,17 +24,17 @@ app.use(
 app.use(upload());
 
 app.get("/", (req: Request, res: Response) => {
-  res.send(messages["uploadError"]);
+  res.send(messages["greeting"]);
 });
 
 app.post("/brighter/:howBright", (req: Request, res: Response) => {
   if (req.files) {
-    var file = req.files.file;
-    var fileName = file.name;
+    const file = req.files.file;
+    const fileName = file.name;
     clear(uploadDir, outputDir);
     file.mv(uploadDir + fileName, (err) => {
       if (err) {
-        res.send(messages["greeting"]);
+        res.send(messages["uploadError"]);
       } else {
         improc.brightness(
           uploadDir + fileName,
@@ -51,3 +51,5 @@ app.listen(PORT, () => {
   console.log("Server running on port %d", PORT);
   makeDir();
 });
+
+export { app };
