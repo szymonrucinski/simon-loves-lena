@@ -2,9 +2,9 @@ name: simon-love-lena Continuous Integration
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master, feature]
   push:
-    branches: [ master ]
+    branches: [master, feature]
 
 jobs:
   test_pull_request:
