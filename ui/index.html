@@ -1,0 +1,32 @@
+       <!doctype html>
+       <html>
+         <head>
+        </head>
+         <body>
+            <label for="avatar">Choose a profile picture:</label>
+
+            <input type="file"
+                   id="fileUpload" name="avatar"
+                   accept="image/png, image/jpeg"> 
+            <script>
+                const handleImageUpload = event => {
+    const files = event.target.files
+    const formData = new FormData()
+    formData.append('myFile', files[0])
+  
+    fetch('http://localhost:3000/brighter/', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log(data.path)
+    })
+  }
+  
+  document.querySelector('#fileUpload').addEventListener('change', event => {
+    handleImageUpload(event)
+  })
+            </script>
+         </body>
+       </html>
