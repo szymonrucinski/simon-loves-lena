@@ -3,25 +3,41 @@
          <head>
         </head>
          <body>
-            <label for="avatar">Choose a profile picture:</label>
-
-            <input type="file"
-                   id="fileUpload" name="avatar"
-                   accept="image/png, image/jpeg"> 
+            <label form="avatar">Choose a profile picture:</label>
+                   <div id="fd">
+                    <input type="file" accept="image/bmp" id="fileUpload" name="avatar"o="preview_image(event)">
+                    <img id="output_image"/>
+                   </div>
+                   <div>
+                    <p>Taken from wikpedia</p>
+                    <img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+                      AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+                          9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />
+                  </div>
             <script>
-                const handleImageUpload = event => {
+    const preview_image =  event => 
+    {
+     const reader = new FileReader();
+     reader.onload = function()
+     {
+      const output = document.getElementById('output_image');
+      output.src = reader.result;
+     }
+     reader.readAsDataURL(event.target.files[0]);
+    }
+    var r = null
+    const handleImageUpload = event => {
     const files = event.target.files
-    const formData = new FormData()
-    formData.append('myFile', files[0])
+    var formData = new FormData()
+    formData.append('file',files[0])
+    formData.append('value', 82 )
+    console.log(files[0])
+    console.log("appended")
   
-    fetch('http://localhost:3000/brighter/', {
+    fetch('http://localhost:3000/brighter', {
       method: 'POST',
       body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-      console.log(data.path)
-    })
+    }).then(response => r = response)
   }
   
   document.querySelector('#fileUpload').addEventListener('change', event => {

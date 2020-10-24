@@ -23,15 +23,25 @@ app.use(
 );
 app.use(upload());
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 app.get("/", (req: Request, res: Response) => {
   res.send(messages["greeting"]);
 });
 
-app.post("/brighter/:howBright", (req: Request, res: Response) => {
+app.post("/brighter", (req: Request, res: Response) => {
   if (req.files) {
     const file = req.files.file;
     const fileName = file.name;
     clear(uploadDir, outputDir);
+    console.log("ok");
     file.mv(uploadDir + fileName, (err) => {
       if (err) {
         res.send(messages["uploadError"]);

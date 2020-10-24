@@ -3,7 +3,7 @@ const handleImageUpload = event => {
     const formData = new FormData()
     formData.append('myFile', files[0])
   
-    fetch('/saveImage', {
+    fetch('/http://192.168.8.175:3000/brighter/23', {
       method: 'POST',
       body: formData
     })
